@@ -1,0 +1,104 @@
+<!-- Page Preloder -->
+<div id="preloder">
+  <div class="loader"></div>
+</div>
+
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+  <div class="offcanvas__close">+</div>
+  <ul class="offcanvas__widget">
+    <li><span class="icon_search search-switch"></span></li>
+    <li><a href="#"><span class="icon_heart_alt"></span>
+        <div class="tip">2</div>
+      </a></li>
+    <li><a href="/usercart"><span class="icon_bag_alt"></span>
+                <div class="tip" id="cart-count">{{cartCount}}</div>
+              </a></li>
+  </ul>
+  <div class="offcanvas__logo">
+    <a href="/"><img src="/user/images/logo.png" alt="" /></a>
+  </div>
+  <div id="mobile-menu-wrap"></div>
+  {{#if user}}
+    <div class="header__right__auth">
+      <a href="/userprofile">{{user.FName}}</a>
+      <a href="/logout">Log Out</a>
+    </div>
+  {{else}}
+    <div class="header__right__auth">
+      <a href="/login">Login</a>
+      <a href="/signup">Register</a>
+    </div>
+  {{/if}}
+</div>
+<!-- Offcanvas Menu End -->
+
+<!-- Header Section Begin -->
+<header class="header sticky-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-3 col-lg-2">
+        <div class="logoimg">
+          <a href="/"><img src="/user/images/logomain.png" alt="logo" /></a>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-7">
+        <nav class="header__menu">
+          <ul>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/shop">SHOP</a></li>
+            <li class="cat" data-filter=".HELMETS"><a>HELMET</a></li>
+            <li class="cat" data-filter=".JACKETS"><a >JACKETS</a></li>
+            <li><a class="cat" data-filter=".GLOVES">GLOVES</a></li>
+            {{! <li><a href="#">Pages</a>GLOVES
+                                <ul class="dropdown">
+                                    <li><a href="./product-details.html">Product Details</a></li>
+                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
+                                    <li><a href="./checkout.html">Checkout</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li> }}
+            <li><a class="cat" data-filter=".PANTS">PANTS</a></li>
+            <li><a class="cat" data-filter=".GAURDS">GAURDS</a></li>
+            <li><a class="cat" data-filter=".BOOTS">BOOTS</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-lg-3">
+        <div class="header__right">
+          {{#if user}}
+            <div class="header__right__auth">
+              <a href="/userprofile">{{user.FName}}</a>
+              <a href="/logout">Log Out</a>
+            </div>
+          {{else}}
+            <div class="header__right__auth">
+              <a href="/login">Login</a>
+              <a href="/signup">Register</a>
+            </div>
+          {{/if}}
+          <ul class="header__right__widget">
+            <div class="header__right__auth">
+              <a href="/orders">Orders</a>
+              <a href="/orderhistory">History</a>
+            </div>
+            <li><a href="userwishlist"><span class="icon_heart_alt"></span>
+                <div class="tip">{{wishCount}}</div>
+              </a></li>
+            <li><a href="/usercart"><span class="icon_bag_alt"></span>
+                <div class="tip" id="cart-count">{{cartCount}}</div>
+              </a></li>
+            {{!-- <li><button onclick="addToCart({{this._id}})" class="border-0 bg-white">
+                                <img style="width: 30px;" src="/user/6-shopping-solid.gif" alt="">
+                                <span class="badge badge-warning">4</span>
+                            </button></li> --}}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="canvas__open">
+      <i class="fa fa-bars"></i>
+    </div>
+  </div>
+</header>

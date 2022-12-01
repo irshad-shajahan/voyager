@@ -1,0 +1,28 @@
+{{>userhead}}
+<body>
+    {{>userheader}}
+<table class="table" style="text-align: center; width: 100%;">
+    <thead>
+        <th>OrderId</th>
+        <th>Reciepient Address</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Payment-Method</th>
+    </thead>
+    <tbody>{{#each orders}}
+        <tr>
+            <td>{{this.userId}}</td>
+            <td>{{this.deliveryDetails.address}}</td>
+            <td>{{this.date}}</td>
+            <td><b>{{this.status}}</b></td>
+            <td>₹{{this.totalAmount.[0].total}}/-</td>
+            <td>{{this.paymentMethod}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+    {{userfooter}}
+    {{>userjs}}
+</body>

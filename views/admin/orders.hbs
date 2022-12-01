@@ -1,0 +1,178 @@
+{{>adminhead}}
+
+<body>
+  {{>adminheader}}
+  {{>adminsidebar}}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Orders</h1>
+      <nav>
+
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div>
+    {{#each orders}}
+    <table class="table" style="text-align: center; font-family: bootstrap-icons; width: 100%;">
+      <thead>
+        <th>UserId</th>
+        <th>OrderId</th>
+        <th style="width: 10%;">Order Date</th>
+        <th>Payment Status</th>
+        <th style="width: 10%;">Coupon</th>
+        <th>Payment-Method</th>
+        <th style="width: 10%;" >Total</th>
+        <th>Action</th>
+      <tbody>
+        </thead>
+        <tr>
+          <td>{{this.userId}}</td>
+          <td>{{this._id}}</td>
+          <td>{{this.Order_date}}</td>
+          {{#if this.Now}}
+          <td>
+            <p style="color: green; font-weight: bold;">{{this.status}}</p>
+          </td>
+          {{else}}
+          <td>
+            <p style="color: red; font-weight: bold;">{{this.status}}</p>
+          </td>
+          {{/if}}
+          <td>{{coupon}}</td>
+          <td>{{this.paymentMethod}}</td>
+          <td>₹{{this.totalAmount.total}}/-</td>
+          <td><button type="" onclick="trig('#{{this._id}}')" style="border: 0; background-color: transparent;"><i
+                class="fa-solid fa-eye" style="color: rgb(8, 8, 32)"></i></button></td>
+        </tr>
+      </tbody>
+
+    </table>
+    <div class="collapse" id="{{this._id}}">
+      <div id="1{{this._id}}">
+        <table class="table" style="text-align: center; font-family: bootstrap-icons;">
+          <thead bgcolor="rgb(2, 2, 57)" class="text-light">
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Status</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            {{#each this.products}}
+            <tr>
+              <td><img src="/admin/productImages/{{this.product.images.[0]}}" alt="" style="width:auto; height: 75px;">
+              </td>
+              <td>{{this.product.Name}}</td>
+              <td>₹ {{this.stotal}}/-</td>
+              <td>{{this.quantity}}</td>
+              {{#if this.pstat}}
+              <td style="color: rgb(21, 255, 21); font-weight: bold;">{{this.orderStatus}}</td>
+              {{else if this.ship}}
+              <td style="color: rgb(164, 185, 2); font-weight: bold;">{{this.orderStatus}}</td>
+              {{else if this.out}}
+              <td style="color: rgb(255, 0, 212); font-weight: bold;">{{this.orderStatus}}</td>
+              {{else if this.del}}
+              <td style="color: rgb(0, 26, 255); font-weight: bold;">{{this.orderStatus}}</td>
+              {{else}}
+              <td style="color: rgb(255, 21, 21); font-weight: bold;">{{this.orderStatus}}</td>
+              {{/if}}
+              {{!-- <td><button type="button" class="btn btn-danger"
+                  onclick="cancel('{{this._id}}','{{../this._id}}','#1{{../this._id}}')">Cancel</button></td> --}}
+              <td>
+                {{#if this.pstat}}
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: rgb(2, 2, 57); color: white;">
+                  </button>
+                  <ul class="dropdown-menu" style="width: 205px;">
+                    <li><a class="btn btn-warning" 
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Shipped','#1{{../this._id}}','{{this.stotal}}')"
+                        style="margin-left: 15px; font-size: 12px; font-weight: bold;"><i
+                          class="fa-sharp fa-solid fa-truck-fast"></i> Shipped</a><a class=" btn btn-danger"
+                        style="margin-left:15px; font-size: 12px; font-weight: bold"
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Cancelled','#1{{../this._id}}','{{this.stotal}}')"><i
+                          class="fa-solid fa-ban"></i> Cancel</a></li>
+                  </ul>
+                </div>
+                {{else if this.ship}}
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: rgb(2, 2, 57); color: white;">
+                  </button>
+                  <ul class="dropdown-menu" style="width: 250px;">
+                    <li><a class="btn btn-warning"
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Out For Delivery','#1{{../this._id}}','{{this.stotal}}')"
+                        style="margin-left: 15px; font-size: 12px; font-weight: bold;"><i
+                          class="fa-sharp fa-solid fa-truck-fast"></i> Out For Delivery</a><a class=" btn btn-danger"
+                        style="margin-left:15px; font-size: 12px; font-weight: bold"
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Cancelled','#1{{../this._id}}','{{this.stotal}}')"><i
+                          class="fa-solid fa-ban"></i> Cancel</a></li>
+                  </ul>
+                </div>
+                {{else if this.out}}
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: rgb(2, 2, 57); color: white;">
+                  </button>
+                  <ul class="dropdown-menu" style="width: 210px;">
+                    <li><a class="btn btn-warning" 
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Delivered','#1{{../this._id}}','{{this.stotal}}')"
+                        style="margin-left: 15px; font-size: 12px; font-weight: bold;"><i
+                          class="fa-sharp fa-solid fa-truck-fast"></i>Delivered</a><a class=" btn btn-danger"
+                        style="margin-left:15px; font-size: 12px; font-weight: bold"
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Cancelled','#1{{../this._id}}','{{this.stotal}}')"><i
+                          class="fa-solid fa-ban"></i> Cancel</a></li>
+                  </ul>
+                </div>
+                {{else if this.ret}}
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: rgb(2, 2, 57); color: white;">
+                  </button>
+                  <ul class="dropdown-menu" style="width: 50px;     --bs-dropdown-min-width: 7rem;">
+                    <li><a class="btn btn-warning" 
+                        onclick="actionn('{{../this.userId}}','{{../this._id}}','{{this.item}}','Refund Credited','#1{{../this._id}}','{{this.stotal}}')"
+                        style="margin-left: 15px; font-size: 12px; font-weight: bold;"><i
+                          class="fa-sharp fa-solid fa-truck-fast"></i>Refund</a></li>
+                  </ul>
+                </div>
+                {{/if}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{/each}}
+    {{>adminjs}}
+    <script>
+      function trig(id) {
+        $(id).collapse('toggle')
+      }
+    </script>
+    <script>
+      function actionn(userId, orderId, proId, action, divId, amount) {
+        $.ajax({
+          url: '/admin/updateStatus',
+          data: {
+            userId: userId,
+            orderId: orderId,
+            proId: proId,
+            action: action,
+            refundAmount: amount
+          },
+          method: 'post',
+          success: (response) => {
+            if (response) {
+              $("" + divId).load(window.location.href + " " + divId);
+            }
+          }
+        })
+      }
+    </script>
+</body>

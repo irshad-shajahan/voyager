@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Tables / General - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/admin/images/favicon.png" rel="icon">
+  <link href="/admin/images/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/admin/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/admin/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/admin/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/admin/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/admin/vendor/simple-datatables/style.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/eed1365ac8.js" crossorigin="anonymous"></script>
+  <!-- CSS only -->
+  <!-- JavaScript Bundle with Popper -->
+
+
+
+
+  <!-- Template Main CSS File -->
+  <link href="/admin/stylesheets/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.4.1
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  
+  <script src="/admin/javascripts/sweetalert2.all.js"></script>
+  <style>
+    *,
+    *:before,
+    *:after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+    }
+
+    .toggle {
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .toggle-switch {
+      display: inline-block;
+      background: #ccc;
+      border-radius: 16px;
+      width: 58px;
+      height: 32px;
+      position: relative;
+      vertical-align: middle;
+      transition: background 0.25s;
+    }
+
+    .toggle-switch:before,
+    .toggle-switch:after {
+      content: "";
+    }
+
+    .toggle-switch:before {
+      display: block;
+      background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      transition: left 0.00s;
+    }
+
+    .toggle:hover .toggle-switch:before {
+      background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .toggle-checkbox:checked+.toggle-switch {
+      background: #56c080;
+    }
+
+    .toggle-checkbox:checked+.toggle-switch:before {
+      left: 30px;
+    }
+
+    .toggle-checkbox {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    .toggle-label {
+      margin-left: 5px;
+      position: relative;
+      top: 2px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+  {{>adminheader}}
+  {{>adminsidebar}}
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Banners</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+      <a href="/admin/addBanner" role="button" style="float: right;" <button class="btn btn-outline-success">Add
+        Banner</button></a>
+    </div>
+    <table class="table text-center" style="text-align: center; font-family: bootstrap-icons;">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th scope="col">Banner</th>
+          <th scope="col">Banner Name</th>
+          <th scope="col">Description</th>
+          <th>Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each banners}}
+        <tr>
+          <td></td>
+          <td><img style="width: 160px; height: 60px;" src="/admin/productImages/{{this.images.[0]}}" alt="img"></td>
+          <td>{{this.Name}}</td>
+          <td>{{this.Description}}</td>
+          {{#if this.status}}
+          <td>
+            <label class="toggle">
+              <input class="toggle-checkbox" type="checkbox" onclick="changestatus('{{this._id}}','false')" checked>
+              <div class="toggle-switch"></div>
+
+            </label>
+          </td>
+          {{else}}
+          <td>
+            <label class="toggle">
+              <input class="toggle-checkbox" type="checkbox" onclick="changestatus('{{this._id}}','true')">
+              <div class="toggle-switch"></div>
+
+            </label>
+          </td>
+          {{/if}}
+          <td>
+            {{!-- <a href="/admin/deleteCategory/{{this._id}}" style=" margin-left: 25px;" type="button"
+              onclick="return confirm('Do you want to delete {{this.Category}}')"><img style="width: 20px;"
+                src="https://cdn-icons-png.flaticon.com/128/1214/1214428.png" alt=""></a></td> --}}
+          <a style=" margin-left: 25px;" type="button" onclick="sure('{{this._id}}')"><img style="width: 20px;"
+              src="https://cdn-icons-png.flaticon.com/128/1214/1214428.png" alt=""></a></td>
+
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{>adminjs}}
+    <script>
+      var table = document.getElementsByTagName('table')[0],
+        rows = table.getElementsByTagName('tr'),
+        text = 'textContent' in document ? 'textContent' : 'innerText';
+
+      for (var i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+      }
+    </script>
+    <script>
+      function sure(catId) {
+        alert(catId)
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+            $.ajax({
+              url: '/admin/deletebanner/' + catId,
+              method: 'get',
+              success: (response) => {
+                alert(response)
+              }
+            })
+            location.reload();
+          }
+        })
+
+      }
+    </script>
+    <script>
+      function changestatus(banid,stat){
+       
+         $.ajax({
+              url: '/admin/banstatus',
+              method: 'post',
+              data:{
+                id:banid,
+                status:stat
+              },
+              success: (response) => {
+                location.reload()
+              }
+            })
+      }
+    </script>
+</body>

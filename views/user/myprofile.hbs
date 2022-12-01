@@ -1,0 +1,151 @@
+{{>managehead}}
+
+<body>
+    {{>userheader}}
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar" style="position: fixed;">
+            <div class="p-4">
+                <a href="#" class="img logo rounded-circle mb-5"
+                    style="background-image: url(/admin/images/dp.jpg);"></a>
+                <ul class="list-unstyled components mb-5">
+                    <li>
+                        <a href="/userprofile">Profile Information</a>
+                    </li>
+                    <li>
+                        <a href="/orders">My Orders</a>
+                    </li>
+                    <li>
+                        <a href="/manageaddress">Manage Address</a>
+                    </li>
+                    <li>
+                        <a href="/userwishlist">My Wishless</a>
+                    </li>
+                    <li>
+                        <a href="/usercoupons">My Coupons</a>
+                    </li>
+                    <li>
+                        <a href="/wallet">My Wallet & Referrals</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <main id="main" class="main">
+        <div id="content" class="p-4 ">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <ul class="navbar-nav ml-auto" style="padding-right: 360px;">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="">Profile Information</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <form class="checkout__form" id="updateuser">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Manage Profile</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>user Name</p>
+                                    <input type="text" name="fname" value="{{detail.FName}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Last Name</p>
+                                    <input type="text" value="{{detail.LName}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Phone Number</p>
+                                    <input type="text" name="pname" value="{{detail.Phone}}">
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Email ID</p>
+                                    <input type="text" name="email" value="{{detail.Email}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+
+
+                                <div style="padding-top:155px ;">
+                                    <button class="btn btn-warning" type="button" data-toggle="modal"
+                                        href="#changepassword">Change
+                                        Password</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <button class="btn btn-danger" type="submit" value="update">Update</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <div class="container" style="">
+                <div class="row">
+
+                    <div class="modal fade" id="changepassword" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+
+                                <div class="modal-body" style="text-align: center;">
+                                    <h3>Change Password</h3>
+                                    <form id="changepassword123">
+                                        <div class="modal-body m-4">
+                                            <input type="text" name="password" id="inputPassword5" class="form-control "
+                                                aria-describedby="passwordHelpBlock"
+                                                placeholder="Enter the current password">
+
+                                            <input type="text" name="newpassword" id="inputPassword5"
+                                                class="form-control mt-4" aria-describedby="passwordHelpBlock"
+                                                placeholder="Enter the new password">
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <input type="submit" class="btn btn-primary" value="update">
+                                            </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Page Content  -->
+
+
+
+    <script src="/user/js/jquery.min.js"></script>
+    <script src="/user/js/popper.js"></script>
+    <script src="/user/js/bootstrap.min.js"></script>
+    <script src="/user/js/main.js"></script>
+    <script>
+        $('#updateuser').submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/updateuser',
+                type: 'post',
+                data: $('#updateuser').serialize(),
+                success: (response) => {
+                    location.reload()
+                }
+            })
+        })
+    </script>
+    {{!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <script src="/user/javascripts/changepassword.js"></script>
+    {{>userjs}}
+</body>

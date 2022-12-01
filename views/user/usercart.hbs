@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/user/stylesheets/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/style.css" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/user/stylesheets/modal.css">
+    <style>
+        .container{
+            max-width: 1250px;
+            
+        }
+        .shop__cart__table tbody tr td {
+    padding: 10px 0;}
+    </style>
+
+</head>
+<body>
+    {{>userheader}}
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Cart Section Begin -->
+    <section class="shop-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shop__cart__table">
+                        <table  style="line-height: -1px;!important width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40%;" >Product</th>
+                                    <th style="width: 12%;">Price</th>
+                                    <th style="width: 20%;">Quantity</th>
+                                    <th  style="width: 13%;">Total</th>
+                                    <th style="width: 10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody style="padding: 0;">
+                                {{#each products}}
+                                
+                               
+                                <tr>
+                                    <td class="cart__product__item">
+                                        <img style="width:100px; height:100px;" src="/admin/productImages/{{this.product.images.[0]}}" alt="">
+                                        <div class="cart__product__item__title">
+                                            <h6>{{this.product.Name}}</h6>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">₹{{this.product.Price}}/-</td>
+                                    <td class="cart__quantity">
+                                        <div class="pro-qty">
+                                            <span onclick="changeQuantity('{{this._id}}','{{this.product._id}}','-1','1{{this.product._id}}','-{{this.product.Price}}')" class=" qtybtn">-</span>
+                                            {{!-- <span>{{this.quantity}}</span> --}}
+                                            <input id="{{this.product._id}}" type="text" value="{{this.quantity}}">
+                                            <span onclick="changeQuantity('{{this._id}}','{{this.product._id}}','1','1{{this.product._id}}','{{this.product.Price}}')" class="inc qtybtn">+</span>
+                                        </div>
+                                    </td>
+                                    
+                                    
+                                    <td  class="cart__total">₹<span id=1{{this.product._id}}>{{this.stotal}}</span>/-</td>
+                                    
+                                    
+                                    <td class="cart__close"><a href="/removeProduct/{{this.product._id}}"><span class="icon_close"></span></a></td>
+                                    
+                                </tr>
+                                {{/each}}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=" col-lg-4 align-self-center">
+                    <div class="cart__total__procced"  style="margin-left: 55px; border-radius: 10px;">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Total Cart Items <span>{{cartCount}}</span></li>
+                            <li>Grand Total <span id="discounted">{{total.total}}</span></li>
+                            <li>Coupon Offer <span id="coupoffer"></span></li>
+                            <li>Discounted <span id="coupamount"></span></li>
+                        </ul>
+                        <a href="/proceed-checkout" class="site-btn">Proceed to checkout</a>
+                    </div>
+                    <div class="discount__content mt-5" style="margin-left: 50px;">
+                        <h6 style="margin-left: 20px;">Discount codes</h6>
+                        <form id="code">
+                            <input type="text" placeholder="Enter your coupon code" name="coupon">
+                            <button type="submit" class="site-btn">Apply</button>
+                            <span style="margin-left: 50px; color: red;" id="offervalid"></span>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="/">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn mt-4">
+                        <a href="/usercart"><span class="icon_loading"></span> Update cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <script>
+        function changeQuantity(cartId,proId,count,totid,total){    
+            let quantity=parseInt(document.getElementById(proId).value)
+            let ctotal=parseInt(document.getElementById(totid).innerHTML)
+            cvalue=parseInt(total)
+            console.log(ctotal)
+            count=parseInt(count)
+            $.ajax({
+                url:'/change-product-quantity',
+                data:{
+                cart:cartId,
+                product:proId,
+                count:count,
+                quantity:quantity
+                },
+                method:'post',
+                success:(response)=>{
+                    if(response.removeProduct){
+                        alert("product Removed from cart")
+                        location.reload()
+                    }else{
+                        document.getElementById(proId).value=quantity+count
+                        document.getElementById(totid).innerHTML=ctotal+cvalue
+                    }
+                }
+            }
+            )
+        }
+    </script>
+    <script>
+        $('form').submit(function() {
+  $(this).find("button[type='submit']").prop('disabled',true);
+});
+             $("#code").submit((e) => {
+            e.preventDefault()
+            CPrice=parseInt(document.getElementById('discounted').innerHTML)
+            $.ajax({
+                url: '/apply-coupon',
+                method: 'post',
+                data: $('#code').serialize(),
+                success: (response) => {
+                     if(response.invalid) {
+                        document.getElementById('offervalid').innerHTML="The entered code is invalid"
+                    } else if (response.coupon.valid) {
+                        if(CPrice>=response.coupon.Min_Amount){
+                            if(response.percnt*CPrice<=response.coupon.Max_Amount){
+                                document.getElementById('coupoffer').innerHTML=response.percnt*100+"%"
+                                document.getElementById('coupamount').innerHTML=Math.round((response.percnt*CPrice))+"₹"
+                        document.getElementById('discounted').innerHTML=CPrice-Math.round((response.percnt*CPrice))
+                        }else{
+                            document.getElementById('coupoffer').innerHTML=response.percnt*100+"%"
+                            document.getElementById('coupamount').innerHTML=response.coupon.Max_Amount+"₹"
+                            document.getElementById('offervalid').innerHTML="Max discount of "+response.coupon.Max_Amount+" can only applied"
+                            document.getElementById('discounted').innerHTML=CPrice-response.coupon.Max_Amount
+                        }
+                    } else{
+                        document.getElementById('offervalid').innerHTML="Minimum purchase of "+response.coupon.Min_Amount+" should be done"
+                    }
+                        }
+                }
+            })
+        })
+    </script>
+    {{>userfooter}}
+    {{>userjs}}
+</body>

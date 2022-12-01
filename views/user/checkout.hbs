@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/user/stylesheets/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/style.css" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/user/stylesheets/modal.css">
+
+</head>
+
+<body>
+    {{>userheader}}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            
+            <form action="#" class="checkout__form" id="checkoutForm">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Billing ADDRESS</h5>
+                        <div class="row">
+                            {{#each address}}
+                            <div class="col-lg-12 card mt-4">
+
+                                <div class="card-body text-left">
+                                    <input type="radio" value={{this.Name}} name="Name" checked hidden>
+                                    <input type="radio" value={{this.Address}} name="Address" checked hidden>
+                                    <input type="radio" value={{this.City}} name="City" checked hidden>
+                                    <input type="radio" value={{this.State}} name="State" checked hidden>
+                                    <input type="radio" value={{this.Pin}} name="Pin" checked hidden>
+                                    <input type="radio" value={{this.Mobile}} name="Phone" checked hidden>
+                                    <input type="radio" value={{this.Email}} name="Email" checked hidden>
+                            <input type="radio" value={{this._id}} name="addressid" > 
+                                    <p>{{this.Name}}</p>
+                                    <p>{{this.Address}}</p>
+                                    <p>{{this.City}}</p>
+                                    <p>{{this.State}}</p>
+                                    <p>{{this.Pin}}</p>
+                                    <p>{{this.Mobile}}</p>
+                                </div>
+                            </div>
+                            {{/each}}
+
+                            <div class="col-lg-6 col-md-6 col-sm-6" hidden>
+                                <div class="checkout__form__input">
+                                    <p>Customer Name <span>*</span></p>
+                                    {{!-- <input type="text" name="Name"> --}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" hidden>
+
+                                <div class="checkout__form__input">
+                                    <p>Address <span>*</span></p>
+                                    {{!-- <input type="text" placeholder="Street Address" name="Address"> --}}
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>City <span>*</span></p>
+                                    {{!-- <input type="text" name="City"> --}}
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>State <span>*</span></p>
+                                    {{!-- <input type="text" name="State"> --}}
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Pincode <span>*</span></p>
+                                    {{!-- <input type="text" name="Pin"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6" hidden>
+                                <div class="checkout__form__input">
+                                    <p>Phone <span>*</span></p>
+                                    {{!-- <input type="text" name="Phone"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6" hidden>
+                                <div class="checkout__form__input">
+                                    <p>Email <span>*</span></p>
+                                    {{!-- <input type="text" name="Email"> --}}
+                                    <input type="text" name="userId" value="{{user._id}}" hidden>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" hidden>
+                                <div class="checkout__orm__checkbox">
+
+
+                                </div>
+                                <div class="checkout__form__input">
+
+                                </div>
+                                <div class="checkout__form__checkbox">
+
+                                </div>
+                                <div class="checkout__form__input">
+
+
+                                </div>
+                            </div>
+                            <a class="btn site-btn mt-3" data-toggle="modal" href="#newaddress">Add New Address</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="checkout__order" style="border-radius: 10px;">
+                            <h5>Your order</h5>
+                            <div class="checkout__order__product">
+                                <table style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:35px ;">Qty</th>
+                                            <th>Products</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each products}}
+                                        <tr>
+                                            <td>{{this.quantity}} <b style="color: red;">x</b></td>
+                                            <td style="font-size:12px; font-weight:500 ;">{{this.product.Name}}</td>
+                                            <td style="color: #a90000;">₹{{this.stotal}}/-</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                                
+                                {{!-- <ul>
+                                    <li>
+                                        <span class="top__text">Products</span>
+                                        <span class="top__text__right">Total</span>
+                                    </li>
+                                    {{#each products}}
+                                    <li>{{this.quantity}} <b style="color: rgb(255, 0, 0);">x</b>
+                                        {{this.product.Name}}<span>$ 300.0</span></li>
+                                    {{/each}}
+                                </ul> --}}
+                            </div>
+                            <div class="checkout__order__total">
+                                <ul>
+                                    <li>Total Cart Items <span>{{cartCount}}</span></li>
+                                    <li>Delivery Charges <span style="color: green;">FREE</span></li>
+                                    <li>Total <span>₹{{newTotal}}/-</span></li>
+                                </ul>
+                            </div>
+                            <div class="card mb-4 text-center" style="background-color: #F5F5F5; padding: 5px; border-radius: 8px;">
+                                    <h5 style="font-size: 18px;">Wallet Balance</h5>
+                                    <p style="color: rgb(122, 0, 0); font-weight: bold; font-size: 14px;">Balance: {{userwallet.Amount}}/-</p>
+                            </div>
+                            <div class="checkout__order__widget">
+                                <label for="check-payment">
+                                    Cash On Delivery
+                                    <input type="radio" id="check-payment" value="COD" name="paymentMethod">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="Razorpay">
+                                    Razorpay
+                                    <input type="radio" id="Razorpay" value="Razorpay" name="paymentMethod">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="paypal">
+                                    PayPal
+                                    <input type="radio" id="paypal" value="paypal" name="paymentMethod">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="wallet">
+                                    Wallet
+                                    <input type="radio" id="wallet" value="wallet" name="paymentMethod">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <span style="color: red;" id="walleterror"></span>
+                            </div>
+                            <button type="submit" class="site-btn">Place oder</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <div class="container">
+        <div class="row">
+            <a class="btn btn-primary" data-toggle="modal" href="#ignismyModal" hidden></a>
+            <div class="modal fade" id="ignismyModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="/usercart" data-dismiss="modal" class="close">x</a>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="thank-you-pop">
+
+                                <svg class="checkkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                    <circle class="checkkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                </svg>
+                                <h1>Your Order Has Been Placed</h1>
+                                <p>You Will Recieve An Order Confirmtion Through Email</p>
+                                <a href="/orders" class="btn btn-site">Go To Orders</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <div class="modal fade" id="newaddress" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Add New Address</h3>
+                            <a data-dismiss="modal" class="close">x</a>
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="/checkoutadd" class="checkout__form" method="post">
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="checkout__form__input">
+                                            <p>Customer Name <span>*</span></p>
+                                            <input type="text" name="Name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+
+                                        <div class="checkout__form__input">
+                                            <p>Address <span>*</span></p>
+                                            <input type="text" placeholder="Street Address" name="Address">
+                                        </div>
+                                        <div class="checkout__form__input">
+                                            <p>City <span>*</span></p>
+                                            <input type="text" name="City">
+                                        </div>
+                                        <div class="checkout__form__input">
+                                            <p>State <span>*</span></p>
+                                            <input type="text" name="State">
+                                        </div>
+                                        <div class="checkout__form__input">
+                                            <p>Pincode <span>*</span></p>
+                                            <input type="text" name="Pin">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="checkout__form__input">
+                                            <p>Phone <span>*</span></p>
+                                            <input type="text" name="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="checkout__form__input">
+                                            <p>Email <span>*</span></p>
+                                            <input type="text" name="Email">
+                                            <input type="text" name="userId" value="{{user._id}}" hidden>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3">
+                                        <button class="btn site-btn">Add</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        $("#checkoutForm").submit((e) => {
+            e.preventDefault()
+            $.ajax({
+                url: '/place-order',
+                method: 'post',
+                data: $('#checkoutForm').serialize(),
+                success: (response) => {
+                    console.log(response)
+                    if (response.codSuccess) {
+                        $('#ignismyModal').modal('show')
+                    } else if (response.razorpay) {
+                        razorpayPayment(response)
+                    }else if(response.wallet==true){
+                        $('#ignismyModal').modal('show')
+                    }else if(response.wallet==false){
+                        document.getElementById('walleterror').innerHTML="You don't have enough wallet balance"
+                    }
+                     else{
+                        location.href = response
+                    }
+                }
+            })
+        })
+        function razorpayPayment(order) {
+            var options = {
+                "key": "rzp_test_pa5i8lppxLHLw5", // Enter the Key ID generated from the Dashboard
+                "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Voyager",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+                "handler": function (response) {
+                    verifyPayment(response, order)
+                },
+                "prefill": {
+                    "name": "Gaurav Kumar",
+                    "email": "gaurav.kumar@example.com",
+                    "contact": "9999999999"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            }
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+
+        }
+        function verifyPayment(payment, order) {
+            console.log('razor called')
+            $.ajax({
+                url: '/verify-payment',
+                data: {
+                    payment,
+                    order
+                },
+                method: 'post',
+                success: (response) => {
+                    if (response.status) {
+                        $('#ignismyModal').modal('show')
+                    } else {
+                        alert("payment failed")
+                    }
+                }
+            })
+        }
+    </script>
+    {{>userfooter}}
+    {{>userjs}}
+</body>

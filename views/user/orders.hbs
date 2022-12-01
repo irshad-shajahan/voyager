@@ -1,0 +1,157 @@
+{{>userhead}}
+
+<body>
+  
+  {{>userheader}}
+  {{#if present}}
+  <div class="container mb-5">
+    {{#each orders}}
+    <table class="table " style="text-align: center; width: 100%;">
+      <thead style="margin-top: 50px;">
+        <th>OrderId</th>
+        <th>Reciepient Address</th>
+        <th  style="width: 10%;">Order Date</th>
+        <th>Payment Status</th>
+        <th>Total</th>
+        <th style="width: 10%;">Coupon</th>
+        <th>Payment-Method</th>
+        <th>Order-Details</th>
+      </thead>
+      <tbody>
+        <tr style="height: 50px;" class="text-center">
+          <td>{{this._id}}</td>
+          <td>{{this.deliveryDetails.address}},
+            {{this.deliveryDetails.city}},
+            {{this.deliveryDetails.state}},
+            {{this.deliveryDetails.pincode}}</td>
+          <td>{{this.Order_date}}</td>
+          {{#if this.Now}}
+          <td style="color: rgb(21, 255, 21); font-weight: bold;">{{this.status}}</td>
+          {{else}}
+          <td style="color: rgb(254, 0, 0); font-weight: bold;">{{this.status}}</td>
+          {{/if}}
+          <td>₹{{this.totalAmount.total}}/-</td>
+          <td style="font-size: small; color: grey; font-weight: 500;">{{this.coupon}}</td>
+          <td>{{this.paymentMethod}}</td>
+          <td><button type="" class="btn btn-warning" onclick="trig('#{{this._id}}')">View</button></td>
+        </tr>
+      </tbody>
+
+    </table>
+    
+
+
+    <div class="collapse" id="{{this._id}}">
+      <div id="1{{this._id}}">
+        <table class="table" style="text-align:center; ">
+          <thead bgcolor="orange">
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Status</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+            {{#each this.products}}
+            <tr>
+              <td><img src="/admin/productImages/{{this.product.images.[0]}}" alt="" style="width:auto; height: 75px;">
+              </td>
+              <td>{{this.product.Name}}</td>
+              <td>₹ {{this.stotal}}/-</td>
+              <td>{{this.quantity}}</td>
+              {{#if this.pstat}}
+              <td style="color: rgb(0, 21, 255); font-weight: bold;">{{this.orderStatus}}</td>
+              <td><button type="button" class="btn btn-danger"
+                  onclick="cancel('{{this.item}}','{{../this._id}}','#1{{../this._id}}','Cancelled','{{this.stotal}}')"><i
+                    class="fa-solid fa-xmark"></i>Cancel</button>
+              </td>
+              {{else if this.ship}}
+              <td style="color: rgb(0, 207, 254); font-weight: bold;"><i class="fa-sharp fa-solid fa-truck-fast"></i>
+                {{this.orderStatus}}</td>
+              <td><button type="button" class="btn btn-danger"
+                  onclick="cancel('{{this.item}}','{{../this._id}}','#1{{../this._id}}','Cancelled','{{this.stotal}}')"><i
+                    class="fa-solid fa-xmark"></i> Cancel</button></td>
+             
+              {{else if this.out}}
+              <td style="color: rgb(195, 255, 0); font-weight: bold;"><i class="fa-solid fa-box"></i>
+             
+                {{this.orderStatus}}</td>
+              <td><button type="button" class="btn btn-danger"
+                  onclick="cancel('{{this.item}}','{{../this._id}}','#1{{../this._id}}','Cancelled','{{this.stotal}}')"><i
+                    class="fa-solid fa-xmark"></i> Cancel</button></td>
+              {{else if this.del}}
+              <td style="color: rgb(30, 255, 0); font-weight: bold;"><i class="fa-solid fa-box"></i>
+                {{this.orderStatus}}</td>
+              <td><button type="button" class="btn btn-primary"
+                  onclick="cancel('{{this.item}}','{{../this._id}}','#1{{../this._id}}','Return Requested','{{this.stotal}}')"><i
+                    class="fa-solid fa-rotate-left"></i> Return</button></td>
+                    {{else}}
+                        <td style="color: rgb(255, 0, 0); font-weight: bold;">
+                {{this.orderStatus}}</td>
+                <td></td>
+
+              {{/if}}
+            </tr> 
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{/each}}
+    <nav aria-label="Page navigation example" style="margin-top: -13px;">
+      <ul class="pagination justify-content-center">
+        <li class="page-item ">
+          <a class="page-link text-dark" href="/orders?page={{previous.page}}" >Previous</a>
+        </li>
+        {{#each pageNos}}
+        <li class="page-item"><a class="page-link {{this.active}} text-dark" href="/orders?page={{this.page}}" >{{this.page}}</a></li>
+        {{/each}}
+        <li class="page-item">
+          <a class="page-link text-dark" href="/orders?page={{next.page}}">Next</a>
+        </li>
+      </ul>
+    </nav>.
+  </div>
+  {{else}}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="height: 100vh; display: flex; justify-content: center; align-items: center;" class="">
+
+          <h1><img src="/user/1000_F_116487274_l3REaiEPiZyZPDcG5Mie39ntrB6FfUhG-removebg-preview.png"
+              style="height:45px ;" alt="">NO ORDERS</h1>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  {{>userfooter}}
+  {{>userjs}}
+  <script>
+    function trig(id) {
+      $(id).collapse('toggle')
+    }
+  </script>
+  <script>
+    function cancel(productid, orderid, divId, action,amount) {
+      $.ajax({
+        url: '/updateOrderUser',
+        data: {
+          order: orderid,
+          product: productid,
+          action: action,
+          refundAmount:amount
+        },
+        method: 'post',
+        success: (response) => {
+          if (response) {
+            $("" + divId).load(window.location.href + " " + divId);
+          }
+        }
+      })
+    }
+  </script>
+
+</body>

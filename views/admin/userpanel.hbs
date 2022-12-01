@@ -1,0 +1,56 @@
+{{>adminhead}}
+<body>
+  {{>adminheader}}
+  {{>adminsidebar}}
+  
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>User Panel</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+<a href="/admin/AddUser" role="button" style="float: right;"<button class="btn btn-outline-success">Add Users</button></a>
+    </div>
+                  <table class="table" >
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">E-Mail</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each users}}
+                  <tr>
+                    <td></td>
+                    <td>{{this.FName}}</td>
+                    <td>{{this.LName}}</td>
+                    <td>{{this.Email}}</td>
+                    <td>{{this.Phone}}</td>
+                    {{#if this.status}}
+                    <td><a href="/admin/blockUser/{{this._id}}"><button type="button" style="width: 85px;" class="btn btn-outline-success">Block</button></a></td>
+                    {{else}}
+                    <td><a href="/admin/unblockUser/{{this._id}}"><button type="button" class="btn btn-outline-danger">Unblock</button></a></td>
+                    {{/if}}
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+              {{>adminjs}}
+              <script>
+      var table = document.getElementsByTagName('table')[0],
+        rows = table.getElementsByTagName('tr'),
+        text = 'textContent' in document ? 'textContent' : 'innerText';
+
+      for (var i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+      }
+    </script>
+</body>

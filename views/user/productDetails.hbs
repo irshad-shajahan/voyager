@@ -1,0 +1,113 @@
+{{>userhead}}
+<body>
+{{>userheader}}
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="#">{{products.Category}}</a>
+                        <span>{{products.Name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__left product__thumb nice-scroll">
+                            <a class="pt active" href="#product-1">
+                                <img src="/admin/productImages/{{products.images.[0]}}" alt="">
+                            </a>
+                            <a class="pt" href="#product-2">
+                                <img src="/admin/productImages/{{products.images.[1]}}" alt="">
+                            </a>
+                            <a class="pt" href="#product-3">
+                                <img src="/admin/productImages/{{products.images.[2]}}" alt="">
+                            </a>
+                            
+                        </div>
+                        <div class="product__details__slider__content">
+                            <div class="product__details__pic__slider owl-carousel">
+                                <img data-hash="product-1"  class="product__big__img" src="/admin/productImages/{{products.images.[0]}}" alt="">
+                                <img data-hash="product-2" class="product__big__img" src="/admin/productImages/{{products.images.[1]}}" alt="">
+                                <img data-hash="product-3" class="product__big__img" src="/admin/productImages/{{products.images.[2]}}" alt="">                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="product__details__text">
+                        <h3>{{products.Name}} <span>Brand: {{products.Brand}}</span></h3>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <span>( 138 reviews )</span>
+                        </div>
+                        <div class="product__details__price">₹{{products.Price}}/- <span>{{products.APrice}}</span></div>
+                        <p>{{products.Description}}</p>
+                        <div class="product__details__button">
+                            
+                            {{!-- <a href="/addtocart/{{products._id}}" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a> --}}
+                            {{#if check.status}}
+                          <button onclick="addToCart('{{products._id}}')" class="cart-btn border-0">Add to Cart</button>
+                            {{else}}
+                                <a href="/usercart" class="cart-btn">Go to Cart</a>
+                            {{/if}}
+                            <ul>
+                                <li><a onclick="addToWishlist('{{products._id}}')"><span class="icon_heart_alt"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="product__details__widget">
+                            <ul>
+                                <li>
+                                    <p>Free shipping</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Reviews ( 2 )</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <h6>Description</h6>
+                                <p>{{products.Description}}</p>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <h6>Reviews ( 2 )</h6>
+                                <span>Iba Irsh(verified buyer)</span>
+                                <p>When the weather gets really hot, riding a motorcycle is indeed exhausting unless you have well ventilated riding gear. The JET riding pants are designed with extra large mesh panels on the front and back. This is done in order to offer optimum ventilation. Now ride comfortably even in the warmest environments. Also, sewn with double reinforced safe seams it provides both durability and lightweight.</p>
+                                <span>Sumesh Chadran(verified buyer)</span>
+                                <p>The trousers are equipped with NextDry™ waterproof membrane rain liner. This can used as an inner as well as outer liner depending on your preference. The NextDry™ membrane is a microporous, breathable construction,  thereby making it a waterproof and windproof solution. Specifically designed for motorcyclists like you, NextDry™ allows your skin to breathe while keeping it dry and comfortable. Now ride rain ready and keep that throttle steady!!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{{>userfooter}}
+{{>userjs}}
+
+</body>

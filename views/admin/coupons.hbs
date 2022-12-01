@@ -1,0 +1,59 @@
+{{>adminhead}}
+
+<body>
+  {{>adminheader}}
+  {{>adminsidebar}}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Coupons</h1>
+      <nav>
+        <div>
+          <a href="/admin/addcoupons" role="button" style="float: right;" <button class="btn btn-outline-success">Add
+            Coupon</button></a>
+
+        </div>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div>
+    <table class="table" style="text-align: center; font-family: bootstrap-icons;">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Coupon Code</th>
+          <th scope="col">Expiry</th>
+          <th scope="col">Max Amount</th>
+          <th scope="col">Min Amount</th>
+          <th scope="col">Percentage</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each coups}}
+        <tr>
+          <td></td>
+          <td>{{this.Coupon_Code}}</td>
+          <td>{{this.Expiry}}</td>
+          <td>₹{{this.Max_Amount}}/-</td>
+          <td>{{this.Min_Amount}}</td>
+          <td>{{this.Discount_Percentage}}</td>
+            <td></a>
+            <a href="/admin/deletecoupon/{{this._id}}" style=" margin-left: 25px;" type="button" onclick="return confirm('Do you want to delete {{this.Name}}')"><img style="width: 20px;" src="https://cdn-icons-png.flaticon.com/128/1214/1214428.png" alt=""></a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{>adminjs}}
+    <script>
+      var table = document.getElementsByTagName('table')[0],
+        rows = table.getElementsByTagName('tr'),
+        text = 'textContent' in document ? 'textContent' : 'innerText';
+
+      for (var i = 1, len = rows.length; i < len; i++) {
+        rows[i].children[0][text] = i + ' ' + rows[i].children[0][text];
+      }
+    </script>
+</body>

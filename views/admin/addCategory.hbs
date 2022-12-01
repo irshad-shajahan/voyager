@@ -1,0 +1,39 @@
+{{>adminhead}}
+
+<body>
+	{{>adminheader}}
+	{{>adminsidebar}}
+	<main id="main" class="main">
+	    <section class="section">
+      <div class="row">
+	        <div class="col-lg-6" style="margin-top:150px ; margin-left:240px ;">
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">ADD CATEGORY</h5>
+
+			<!-- Vertical Form -->
+			<form class="row g-3" action="/admin/AddCategory" method="post" onsubmit="return validate()">
+				<div class="col-12">
+					<label for="inputNanme4" class="form-label">Category Name</label>
+					<input type="text" oninput="validcatname()" name="Category" class="form-control" id="catname">
+				</div>
+                    <span id="catvalid" style="color: red;"></span>
+				<div class="col-12">
+					<label for="inputNanme4" class="form-label">Category Offer <i class="fa"></i></label>
+					<input type="text" name="Offer" oninput="validatecatoffer()" value="0"  class="form-control" id="catoffer">
+				</div>
+				<span id="offervalid" style="color: red;"></span>
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary">Add Category</button>
+					<button type="reset" class="btn btn-secondary">Reset</button>
+				</div>
+			</form><!-- Vertical Form -->
+
+		</div>
+	</div>
+	</div>
+	</div>
+	</section>
+	</main>
+	{{>adminjs}}
+</body>

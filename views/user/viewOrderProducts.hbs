@@ -1,0 +1,28 @@
+{{>userhead}}
+<body>
+    {{>userheader}}
+    <table class="table" style="text-align:center; margin-bottom: 100px;">
+        <thead>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Order Date</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td><img src="/admin/productImages/{{this.product.images.[0]}}" alt="" style="width:100px ;"></td>
+                    <td>{{this.product.Name}}</td>
+                    <td>₹{{this.product.Price}}/-</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.date}}</td>
+                    <td><a href="" class="btn btn-danger"> Cancel</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+    </table>
+    {{>userfooter}}
+    {{>userjs}}
+</body>
