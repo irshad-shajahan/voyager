@@ -11,7 +11,6 @@ module.exports={
         res.render('admin/addcoupons')
     },
     addPost:(req,res)=>{
-        console.log(req.body);
     adminHelpers.couponAdd(req.body).then(()=>{
         res.redirect('/admin/coupons');
     })
@@ -23,7 +22,6 @@ module.exports={
         })
     },
     apply:(req,res)=>{
-        console.log(req.body);
         cartHelpers.applycoupon(req.body).then((coupon)=>{
             coupon.valid=true
             let percnt=(coupon.Discount_Percentage/100)
