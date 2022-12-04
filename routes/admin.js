@@ -21,6 +21,7 @@ router
   .route('/')
   .get(verify.verifyAdminLoggedIn,adminHome.login)
   .post(adminHome.loginPost)
+  
 // !admin-logout
 router
 .route('/logout')
@@ -101,19 +102,6 @@ router
 router
 .route('/salesreport')
 .get(sales.salesReport)
-
-// router
-// .route("/weeklysales")
-// .get(sales.weekly)
-
-// router
-// .route("/dailysales")
-// .get(sales.daily)
-
-// router
-// .route("/monthlysales")
-// .get(sales.monthly)
-
 
 router
 .route("/linegraph")

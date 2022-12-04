@@ -58,7 +58,7 @@ module.exports = {
   if (req.session.userlogin) {
     res.redirect('/')
   } else {
-    res.render('user/signup', { sgn });
+    res.render('user/sIgnup', { sgn });
     req.session.err = null
   }
 },

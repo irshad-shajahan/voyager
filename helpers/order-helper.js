@@ -355,10 +355,11 @@ module.exports = {
     });
   },
   generateRazorpay: (orderId, total) => {
-    console.log(orderId + "jddddddddddddddssssssssssssssssdd");
+    let totalamount=parseInt(total.total)
+    console.log(totalamount);
     return new Promise((resolve, reject) => {
       var options = {
-        amount: total.total * 100,
+        amount: totalamount * 100,
         currency: "INR",
         receipt: "" + orderId,
       };
