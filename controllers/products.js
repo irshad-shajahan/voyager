@@ -5,6 +5,7 @@ const productHelpers = require("../helpers/product-helpers")
 module.exports={
   
     userproductdetails:async(req, res) => {
+      
         req.session.path=req.params.id
         let user = req.session.user
         let cartCount=null

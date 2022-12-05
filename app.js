@@ -22,7 +22,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret:"key",
-  cookie:{maxAge:1000*60*60}
+  cookie:{maxAge:1000*60*60},
+  saveUninitialized: true,
+  resave:false
 }))
 
 app.use((req, res, next) => {

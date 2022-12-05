@@ -34,131 +34,131 @@ router
 
 router
   .route('/AddUser')
-  .get(adminUser.add)
-  .post(adminUser.addPost)
+  .get(verify.verifyAdminLoggedOut,adminUser.add)
+  .post(verify.verifyAdminLoggedOut,adminUser.addPost)
 
 router
 .route('/blockUser/:id')
-.get(adminUser.block)
+.get(verify.verifyAdminLoggedOut,adminUser.block)
 
 router
 .route('/unblockUser/:id')
-.get(adminUser.unblock)
+.get(verify.verifyAdminLoggedOut,adminUser.unblock)
 
 /* Categories */
 router
 .route('/categories')
-.get(cat.category)
+.get(verify.verifyAdminLoggedOut,cat.category)
 
 // add-category
 router
   .route('/addCategory')
-  .get(cat.add)
-  .post(cat.addPost)
+  .get(verify.verifyAdminLoggedOut,cat.add)
+  .post(verify.verifyAdminLoggedOut,cat.addPost)
   
 // edit-category
 router
   .route('/editCategory/:id')
-  .get(cat.edit)
-  .post(cat.editPost)
+  .get(verify.verifyAdminLoggedOut,cat.edit)
+  .post(verify.verifyAdminLoggedOut,cat.editPost)
 
 // delete-caetgory
 router
 .route('/deletecategory/:id')
-.get(cat.delete)
+.get(verify.verifyAdminLoggedOut,cat.delete)
 
 /* Product */
 router
 .route('/products')
-.get(product.list)
+.get(verify.verifyAdminLoggedOut,product.list)
 
 // add-product
 router
   .route('/addproducts')
-  .get(product.add)
-  .post(upload.array('Image',4),product.addPost)
+  .get(verify.verifyAdminLoggedOut,product.add)
+  .post(verify.verifyAdminLoggedOut,upload.array('Image',4),product.addPost)
 
 // delete-product
 router
 .route('/deleteProduct/:id')
-.get(product.delete)
+.get(verify.verifyAdminLoggedOut,product.delete)
 
 // edit-product
 router
 .route('/editProduct/:id')
-  .get(product.edit)
-  .post(upload.array('Image',4),product.editPost)
+  .get(verify.verifyAdminLoggedOut,product.edit)
+  .post(verify.verifyAdminLoggedOut,upload.array('Image',4),product.editPost)
 
 
 
 router
 .route('/orders')
-.get(order.adminViewOrder)
+.get(verify.verifyAdminLoggedOut,order.adminViewOrder)
 
 router
 .route('/updateStatus')
-.post(order.updateOrderStatusAdmin)
+.post(verify.verifyAdminLoggedOut,order.updateOrderStatusAdmin)
 
 router
 .route('/salesreport')
-.get(sales.salesReport)
+.get(verify.verifyAdminLoggedOut,sales.salesReport)
 
 router
 .route("/linegraph")
-.get(adminHome.linegraph)
+.get(verify.verifyAdminLoggedOut,adminHome.linegraph)
 
 
 router
 .route('/pieData')
-.get(adminHome.pieData)
+.get(verify.verifyAdminLoggedOut,adminHome.pieData)
 
 router
 .route('/yearly')
-.get(adminHome.yearly)
+.get(verify.verifyAdminLoggedOut,adminHome.yearly)
 
 router
 .route('/coupons')
-.get(coupon.coupons)
+.get(verify.verifyAdminLoggedOut,coupon.coupons)
 
 router
 .route('/addcoupons')
-.get(coupon.add)
-.post(coupon.addPost)
+.get(verify.verifyAdminLoggedOut,coupon.add)
+.post(verify.verifyAdminLoggedOut,coupon.addPost)
 
 router
 .route('/deletecoupon/:id')
-.get(coupon.delete)
+.get(verify.verifyAdminLoggedOut,coupon.delete)
 
 router
 .route('/banners')
-.get(banners.banners)
+.get(verify.verifyAdminLoggedOut,banners.banners)
 
 router
 .route('/addBanner')
-.get(banners.add)
+.get(verify.verifyAdminLoggedOut,banners.add)
 
 router
 .route('/banneradd')
-.post(upload.array('Image',4),banners.addPost)
+.post(verify.verifyAdminLoggedOut,upload.array('Image',4),banners.addPost)
 
 router
 .route('/deletebanner/:id')
-.get(banners.delete)
+.get(verify.verifyAdminLoggedOut,banners.delete)
 
 router
 .route('/banstatus')
-.post(banners.status)
+.post(verify.verifyAdminLoggedOut,banners.status)
 
 router
 .route('/fromto')
-.get(sales.fromTo)
+.get(verify.verifyAdminLoggedOut,sales.fromTo)
 
 router
 .route('/monthly')
-.get(sales.monthly)
+.get(verify.verifyAdminLoggedOut,sales.monthly)
 
 router
 .route('/salesyearly')
-.get(sales.yearlySales)
+.get(verify.verifyAdminLoggedOut,sales.yearlySales)
 
 module.exports = router;

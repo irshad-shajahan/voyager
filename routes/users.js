@@ -62,11 +62,11 @@ router
 
 router
 .route('/change-product-quantity')
-.post(cart.qty)
+.post(verify.verifyLoggedOutUser,cart.qty)
 
 router
 .route('/removeProduct/:id')
-.get(cart.removeProduct)
+.get(verify.verifyLoggedOutUser,cart.removeProduct)
 
 router
 .route('/proceed-checkout')
@@ -74,7 +74,7 @@ router
 
 router
 .route('/place-order')
-.post(order.place)
+.post(verify.verifyLoggedOutUser,order.place)
 
 router
 .route('/orders')
@@ -86,11 +86,11 @@ router
 
 router
 .route('/updateOrderUser')
-.post(order.updateOrderStatusUser)
+.post(verify.verifyLoggedOutUser,order.updateOrderStatusUser)
 
 router
 .route('/orderhistory')
-.get(order.history)
+.get(verify.verifyLoggedOutUser,order.history)
 
 router
 .route('/userprofile')
@@ -98,7 +98,7 @@ router
 
 router
 .route('/updateuser')
-.post(manage.updateuser)
+.post(verify.verifyLoggedOutUser,manage.updateuser)
 
 router
 .route('/verify-payment')
@@ -128,7 +128,7 @@ router
 
 router
 .route('/checkoutadd')
-.post(cart.addressAdd)
+.post(verify.verifyLoggedOutUser,cart.addressAdd)
 
 router
 .route('/wallet')
@@ -144,7 +144,7 @@ router
 
 router
 .route('/shop')
-.get(userhome.shop)
+.get(sessHandle.ogUrl,userhome.shop)
 
 router
 .route('/addtowishlist/:id')

@@ -239,7 +239,17 @@ module.exports = {
       });
     });
   },
-  papusuccess: (req, res) => {
-    res.render("user/paypalsuccess");
+  papusuccess: async(req, res) => {
+    let user = req.session.user;
+    let cartCount=null
+    if(req.session.user){
+     wishCount=await cartHelpers.getWishCount(req.session.user._id)
+      cartCount=await cartHelpers.getCartCount(req.session.user._id)
+      address=cartHelpers.selectAddress(req.session.user._id)
+    }else{
+      cartCount=0
+      wishCount=0
+    }
+    res.render("user/paypalsuccess",{user,cartCount,address});
   },
 };
