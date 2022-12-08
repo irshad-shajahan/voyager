@@ -96,7 +96,13 @@ shop:async(req,res)=>{
       wishCount=0
     }
     productHelpers.getAllproducts().then((products)=>{
-
+      products.forEach((elem)=>{
+        if(elem.stock==0){
+          elem.nostock=true
+        }else{
+          elem.nostock=false
+        }
+       })
       res.render('user/shop',{user,cartCount,products,wishCount})
     })
 }

@@ -155,7 +155,11 @@
             <div class="product__item ">
               <div class="product__item__pic set-bg" data-setbg="/admin/productImages/{{this.images.[0]}}"
                 style="background-size: contain;">
-                <div class="label new">SAVE {{this.Poffer}}%</div>
+                 {{#if this.nostock}}
+                    <div class="label stockout">Out Of Stock</div>
+                    {{else}}
+                        <div class="label new">SAVE {{this.Poffer}}%</div>
+                        {{/if}}
                 <ul class="product__hover">
                   <li><a href="/admin/productImages/{{this.images.[0]}}" class="image-popup"><span
                         class="arrow_expand"></span></a></li>
