@@ -11,7 +11,6 @@ module.exports={
         salescount=sales.length
         let customers=await adminHelpers.totalcustomer()
         customercount=customers.length
-        console.log(customercount);
         res.render('admin/index',{report,revenue,salescount,customercount})
       },
       /* admin login */

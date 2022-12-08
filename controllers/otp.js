@@ -21,7 +21,6 @@ module.exports={
         userHelpers.doOTP(req.body.Phone).then((response) => {
           if (response.status) {
             req.session.mobile = req.body.Phone
-            console.log(req.body.Phone);
             client
               .verify
               .services(serviceID)
@@ -30,7 +29,6 @@ module.exports={
                 to: `+91${req.body.Phone}`,
                 channel: "sms"
               }).then((data) => {
-                console.log(data);
                 res.redirect('/verify')
               })
           } else {
@@ -54,7 +52,6 @@ module.exports={
           req.session.userlogin = true
           var arr = Object.values(req.body)
           var otp = arr.toString().replaceAll(',', '');
-          console.log(otp);
           client
             .verify
             .services(serviceID)
@@ -64,7 +61,6 @@ module.exports={
               code: otp
             }).then((data) => {
               if (data.valid) {
-                console.log(data);
                 res.redirect('/')
               } else {
                 res.redirect('/verify')

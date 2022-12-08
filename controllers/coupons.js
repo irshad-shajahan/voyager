@@ -4,7 +4,6 @@ const cartHelpers = require("../helpers/cart-helpers");
 module.exports={
     coupons:async(req,res)=>{
         coups=await adminHelpers.coupons()
-        console.log(coups);
         res.render('admin/coupons',{coups})
     },
     add:(req,res)=>{
@@ -16,7 +15,6 @@ module.exports={
     })
     },
     delete:(req,res)=>{
-        console.log(req.params);
         adminHelpers.deletecoupon(req.params).then(()=>{
             res.redirect('/admin/coupons')
         })
@@ -25,7 +23,6 @@ module.exports={
         cartHelpers.applycoupon(req.body).then((coupon)=>{
             coupon.valid=true
             let percnt=(coupon.Discount_Percentage/100)
-            console.log(coupon);
             req.session.coupon=coupon
             res.json({coupon,percnt})
         }).catch(()=>{

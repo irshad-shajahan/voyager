@@ -52,14 +52,11 @@ module.exports={
       },
       addPost:async(req, res) => {
         let productData=req.body
-        console.log(productData);
-        console.log(req.files);
         productData.added_on= new Date()
         let imagesFileNames=req.files.map((file)=>{
           return file.filename
         })
         productData.images=imagesFileNames
-        console.log(productData);
         productData.stock=parseInt(productData.stock)
         let proId= await productHelpers.addProduct((productData))
               res.redirect("/admin/products")
@@ -79,7 +76,6 @@ module.exports={
         res.render('admin/editProduct', { products, category },)
       },
       editPost:async (req, res) => {
-        console.log('dsdddddddddddddddd'+req.params.id);
         if(req.files[0]){
           var imageName=req.files.map((file)=>{
             return file.filename
@@ -90,20 +86,8 @@ module.exports={
         else {
           let value =await productHelpers.getProductDetails(req.params.id)
           var productData = req.body;
-          console.log(req.body.id);
-          console.log("havvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvi");
-          console.log(value);
           productData.imagesFileNames = value.images
-            console.log(productData);
         }
-        // else{
-        //   var productData=req.body
-        //   productHelpers.getProductDetails(req.params.id).then((file)=>{
-        //     productData.imagesFileNames=file.imagesFileNames
-        //   })
-        //   console.log(req.files);
-        //   console.log(productData)
-        // }
         productHelpers.updateProduct(req.params.id, productData).then((response) => {
 
           res.redirect("/admin/products")

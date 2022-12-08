@@ -14,11 +14,9 @@ module.exports = {
         .collection(collection.CART_COLLECTION)
         .findOne({ user: ObjectId(userId) });
       if (userCart) {
-        console.log(proId);
         let proExist = userCart.product.findIndex(
           (product) => product.item == proId
         );
-        console.log(proExist);
         if (proExist != -1) {
           db.get()
             .collection(collection.CART_COLLECTION)
@@ -59,7 +57,6 @@ module.exports = {
     });
   },
   changeProductQuantity: (details) => {
-    console.log(details);
     count = parseInt(details.count);
     quantity = parseInt(details.quantity);
     return new Promise(async (resolve, reject) => {
@@ -67,7 +64,6 @@ module.exports = {
         .get()
         .collection(collection.PRODUCT_COLLECTION)
         .findOne({ _id: ObjectId(details.product) });
-      console.log(cproduct.stock);
       if (count == -1 && quantity == 1) {
         db.get()
           .collection(collection.CART_COLLECTION)
@@ -242,8 +238,6 @@ module.exports = {
     });
   },
   deleteitem: (userid, prodid) => {
-    console.log("888888888888888888888888");
-    console.log(userid + "******" + prodid);
     return new Promise(async (resolve, reject) => {
       count = await db
         .get()
@@ -320,9 +314,42 @@ module.exports = {
               Address: "$Address.Address",
               City: "$Address.City",
               Pin: "$Address.Pin",
+              time:"$Address.time"
             },
           },
-        ])
+        ]).sort({time:-1}).limit(1)
+        .toArray();
+      resolve(address);
+    });
+  },
+  manageAddress: (userId) => {
+    return new Promise(async (resolve, reject) => {
+      let address = await db
+        .get()
+        .collection(collection.USERS_COLLECTION)
+        .aggregate([
+          {
+            $match: {
+              _id: ObjectId(userId),
+            },
+          },
+          {
+            $unwind: "$Address",
+          },
+          {
+            $project: {
+              _id: "$Address._id",
+              Name: "$Address.Name",
+              State: "$Address.State",
+              Mobile: "$Address.Mobile",
+              Email: "$Address.Email",
+              Address: "$Address.Address",
+              City: "$Address.City",
+              Pin: "$Address.Pin",
+              time:"$Address.time"
+            },
+          },
+        ]).sort({time:-1}).limit(3)
         .toArray();
       resolve(address);
     });
@@ -345,13 +372,11 @@ module.exports = {
       item: ObjectId(proId),
       wishStatus: true,
     };
-    console.log("add to wish helper called");
     return new Promise(async (resolve, reject) => {
       let wishlist = await db
         .get()
         .collection(collection.WISH_COLLECTION)
         .findOne({ user: ObjectId(userId) });
-      console.log(wishlist);
       if (wishlist) {
         db.get()
           .collection(collection.WISH_COLLECTION)
@@ -362,7 +387,6 @@ module.exports = {
             }
           )
           .then((response) => {
-            console.log(response);
             resolve(response);
           });
       } else {
@@ -435,8 +459,6 @@ module.exports = {
     });
   },
   removeWish: (proId, userId) => {
-    console.log("888888888888888888888888");
-    console.log(userId + "******" + proId);
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collection.WISH_COLLECTION)

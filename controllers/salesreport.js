@@ -3,13 +3,11 @@ const adminHelpers = require("../helpers/admin-helpers")
 module.exports={
     daily:async(req,res)=>{
         let report = await adminHelpers.dailysale()
-        console.log(report);
         res.render('admin/dailysales',{report})
     },
     
     weekly:async(req,res)=>{
         let report = await adminHelpers.weeklySale()
-        console.log(report);
         res.render('admin/weeklysales',{report})
     },
 

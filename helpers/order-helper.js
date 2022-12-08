@@ -13,7 +13,6 @@ var instance = new Razorpay({
 module.exports = {
   placeOrder: (order, products, total, code) => {
     return new Promise(async (resolve, reject) => {
-      // let status = order.paymentMethod === "COD" ? "Success" : "Pending";
       if(order.paymentMethod == "COD"){
         var status="Success"
       }else if(order.paymentMethod == "wallet"){
@@ -28,7 +27,6 @@ module.exports = {
       }else{
         status="Pending"
       }
-      // let Saddress= await db.get().collection(collection.USERS_COLLECTION).aggregate([])
       let orderObj = {
         userId: ObjectId(order.userId),
         Name: order.Name,
@@ -66,20 +64,7 @@ module.exports = {
             Address: order.Address,
             City: order.City,
             Pin: order.Pin,
-          };
-          db.get()
-            .collection(collection.USERS_COLLECTION)
-            .updateOne(
-              {
-                _id: ObjectId(order.userId),
-              },
-              {
-                $addToSet: {
-                  Address: customer,
-                },
-              }
-            )
-            .then(() => {
+          }
               db.get()
                 .collection(collection.USERS_COLLECTION)
                 .updateOne(
@@ -93,8 +78,15 @@ module.exports = {
                   }
                 )
                 .then(() => {
-                  resolve(id);
-                });
+                  if(order.paymentMethod == "paypal"){
+                    resolve(id);
+                  }else{
+                    
+                    db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)}).then(()=>{
+  
+                      resolve(id);
+                    })
+                  }
             });
         });
     });
@@ -211,7 +203,6 @@ module.exports = {
             .findOne({
               $and: [{ _id: ObjectId(orderId) }, { paymentMethod: "COD" }],
             });
-          console.log(check);
           if (check) {
             resolve(response);
           } else {
@@ -268,14 +259,12 @@ module.exports = {
         )
         .then(async (response) => {
           if(data.action=='Cancelled'){
-            console.log('-------------------cancelled entered');
             let check = await db
             .get()
             .collection(collection.ORDER_COLLECTION)
             .findOne({
               $and: [{ _id: ObjectId(data.orderId) }, { paymentMethod: "COD" }],
             });
-          console.log(check);
           if (check) {
             resolve(response);
           } else {
@@ -307,7 +296,6 @@ module.exports = {
               });
           }
           }else if(data.action=='Refund Credited'){
-            console.log('+++++++++++++++++++++++++++refund entered');
             db.get()
               .collection(collection.WALLET_COLLECTION)
               .updateOne(
@@ -356,7 +344,6 @@ module.exports = {
   },
   generateRazorpay: (orderId, total) => {
     let totalamount=parseInt(total.total)
-    console.log(totalamount);
     return new Promise((resolve, reject) => {
       var options = {
         amount: totalamount * 100,
@@ -365,9 +352,7 @@ module.exports = {
       };
       instance.orders.create(options, function (err, order) {
         if (err) {
-          console.log(err);
         } else {
-          console.log("New order :", order);
           resolve(order);
         }
       });
@@ -390,9 +375,7 @@ module.exports = {
       }
     });
   },
-  changePaymentStatus: (orderId) => {
-    console.log("change payment status called");
-    console.log(orderId);
+  changePaymentStatus: (orderId,userId) => {
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collection.ORDER_COLLECTION)
@@ -405,7 +388,10 @@ module.exports = {
           }
         )
         .then((response) => {
-          resolve(response);
+          db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(userId)}).then(()=>{
+
+            resolve(response);
+          })
         });
     });
   },
@@ -413,10 +399,7 @@ module.exports = {
     return new Promise(async(resolve,reject)=>{
       let userwallet=await userHelpers.wallet(userId)
       let balance=userwallet.Amount
-      console.log('wallte bakbfsdhbfsdbghsdbvgsdfhgbhsbgdhbsdhgb'+balance);
-      console.log(amount);
       if(amount<balance){
-        console.log('wallet balance satisfied');
         db.get()
         .collection(collection.WALLET_COLLECTION)
         .updateOne(
@@ -450,7 +433,6 @@ module.exports = {
   },
   deletePending:(userId)=>{
     return new Promise((resolve,reject)=>{
-      console.log(userId);
       db.get().collection(collection.ORDER_COLLECTION).deleteMany({
         status:"Pending"
       })

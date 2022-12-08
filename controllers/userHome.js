@@ -19,9 +19,14 @@ module.exports = {
       wishCount=0
     }
     let banner=await adminHelpers.bannershome()
-    console.log(banner);
     productHelpers.getAllproductsShop().then((products) => {
-     
+      products.forEach((elem)=>{
+      if(elem.stock==0){
+        elem.nostock=true
+      }else{
+        elem.nostock=false
+      }
+     })
       res.render("user/homepage", { user, products, cartCount,wishCount,banner});
     });
   },

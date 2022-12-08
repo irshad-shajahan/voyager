@@ -90,9 +90,6 @@ module.exports = {
           },
         ])
         .toArray();
-            console.log('papaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal');
-      console.log(products);
-
       resolve(products);
     });
   },
@@ -124,8 +121,6 @@ module.exports = {
         if (error) {
           throw error;
         } else {
-          console.log("Create Payment Response");
-          console.log(payment);
           resolve(payment);
         }
       });
@@ -150,10 +145,8 @@ module.exports = {
         execute_payment_json,
         function (error, payment) {
           if (error) {
-            console.log(error.response);
             throw error;
           } else {
-            console.log(JSON.stringify(payment));
             resolve();
           }
         }

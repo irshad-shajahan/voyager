@@ -6,7 +6,6 @@ module.exports={
         res.render('admin/addUser')
       },
     addPost:(req, res) => {
-        console.log(req.body);
         adminHelpers.addUsers(req.body).then((response) => {
           res.redirect('/admin/users')
         })

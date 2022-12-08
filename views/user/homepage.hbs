@@ -117,7 +117,11 @@
             <div class="col-lg-3 col-md-4 col-sm-6 mix   {{this.Category}} itemBox">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="/admin/productImages/{{this.images.[0]}}" style="background-size: contain; ">
+                    {{#if this.nostock}}
+                    <div class="label stockout">Out Of Stock</div>
+                    {{else}}
                         <div class="label new">SAVE {{this.Poffer}}%</div>
+                        {{/if}}
                         <ul class="product__hover">
                             <li><a href="/admin/productImages/{{this.images.[0]}}" class="image-popup"><span class="arrow_expand"></span></a></li>
                             <li><a onclick="addToWishlist('{{this._id}}')"><span class="icon_heart_alt"></span></a></li>
@@ -141,38 +145,7 @@
 </section>
 <!-- Product Section End -->
 
-<!-- Banner Section Begin -->
-{{!-- <section class="banner set-bg" data-setbg="/user/images/bannermain.jpg">
-    <div class="container">
-        <div class="row">`
-            <div class="col-xl-7 col-lg-8 m-auto">
-                <div class="banner__slider owl-carousel">
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span> Voyager Collection</span>
-                            <h1 style="color: rgb(255, 221, 0);">The Vintage Jacket</h1>
-                            <a href="#" style="text-decoration: none;">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span> Voyager Collection</span>
-                            <h1 style="color: rgb(255, 221, 0);">The Vintage Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>Voyager Collection</span>
-                            <h1 style="color: rgb(255, 221, 0);">The Vintage Jacket</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
+
 <section  class="">
 <div class="home-slider owl-carousel js-fullheight">
       <div class="slider-item js-fullheight" style="background-image:url(/admin/productImages/{{banner.images.[0]}});">

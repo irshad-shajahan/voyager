@@ -87,13 +87,10 @@ module.exports = {
           let check= await db.get().collection(collection.PRODUCT_COLLECTION).find({
             Category:categorydetails.Category
           }).toArray()
-          console.log(check);
           if(check){
-            console.log('check hsdbfsdbfkbsadhbfsa');
             let product= await db.get().collection(collection.PRODUCT_COLLECTION).find({
               Category:categorydetails.Category
             }).toArray()
-            console.log(product);
             product.forEach(async(element)=>{
               disc=Math.round((offer*element.Price)/100)
               element.APrice=parseInt(element.APrice)
@@ -124,7 +121,6 @@ module.exports = {
         .collection(collection.CATEGORY_COLLECTION)
         .deleteOne({ _id: ObjectId(categoryid) })
         .then((response) => {
-          console.log("response from delete cat" + response);
           resolve(response);
         });
     });
@@ -176,15 +172,11 @@ module.exports = {
     });
   },
   getCartExisting: (proId, userId) => {
-    console.log(userId);
     return new Promise(async (resolve, reject) => {
         let check = {}
         let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: ObjectId(userId) })
-        console.log('usercart     ' + userCart);
-
         if (userCart) {
             let proInt = userCart.product.findIndex((product) => product.item == proId)
-            console.log(proInt)
             if (proInt == -1) {
                 check.status = true
                 resolve(check)

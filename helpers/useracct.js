@@ -17,8 +17,6 @@ module.exports = {
   },
   updateuser: (user, userid) => {
     return new Promise((resolve, reject) => {
-      console.log(user);
-      console.log(userid);
       db.get()
         .collection(collections.USERS_COLLECTION)
         .updateOne(
@@ -38,11 +36,7 @@ module.exports = {
         .then((response) => {
           bcrypt.compare(data.password, response.Password).then(async (res) => {
             if (res) {
-              console.log(data.newpassword);
               data.newpassword = await bcrypt.hash(data.newpassword, 10);
-              console.log("hai");
-              console.log(userid);
-              console.log(data.newpassword);
               db.get()
                 .collection(collections.USERS_COLLECTION)
                 .updateOne(
@@ -50,8 +44,6 @@ module.exports = {
                   { $set: { Password: data.newpassword } }
                 )
                 .then((res) => {
-                  console.log(res);
-
                   resolve();
                 });
             } else {

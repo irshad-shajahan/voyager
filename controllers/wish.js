@@ -7,7 +7,6 @@ module.exports={
     if(req.session.user){
       cartCount=await cartHelpers.getCartCount(req.session.user._id)
       wishCount=await cartHelpers.getWishCount(req.session.user._id)
-      console.log(wishCount);
     }
        cartHelpers.getWishProducts(user._id).then((wish)=>{
             res.render('user/userwishlist',{wish,user,cartCount,wishCount})
@@ -20,7 +19,6 @@ module.exports={
         })
       },
       remove:(req,res)=>{
-        console.log(req.params.id);
         cartHelpers.removeWish(req.params.id,req.session.user._id).then((response)=>{
             res.redirect('/userwishlist')
         })

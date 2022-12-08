@@ -9,7 +9,6 @@ verifyLoggedInUser :(req, res, next) => {
   },
  verifyLoggedOutUser:(req, res, next) => {
   req.session.returnToUrl=req.originalUrl
-  console.log(req.session.returnToUrl);
     if (req.session.userlogin) {
       next()
     } else {
@@ -32,7 +31,6 @@ verifyLoggedInUser :(req, res, next) => {
   },
   ogUrl:(req,res,next)=>{
     req.session.returnToUrl=req.originalUrl
-  console.log(req.session.returnToUrl);
   next()
   }
 }

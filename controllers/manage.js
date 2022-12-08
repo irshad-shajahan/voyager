@@ -1,4 +1,5 @@
 const cartHelpers = require("../helpers/cart-helpers");
+const orderHelper = require("../helpers/order-helper");
 const userHelpers = require("../helpers/user-helpers");
 const useracct = require("../helpers/useracct");
 
@@ -32,21 +33,18 @@ module.exports = {
   },
   address:async(req,res)=>{
     if(req.session.user){
+      user=req.session.user
       cartCount=await cartHelpers.getCartCount(req.session.user._id)
+      address = await cartHelpers.manageAddress(req.session.user._id)
     }
-    detail = await useracct.getuser(req.session.user._id)
-    req.session.user=detail
-    let address=req.session.user.Address
     res.render("user/manageAddress",{user,cartCount,address})
   },
   addressDelete:(req,res)=>{
-    console.log(req.query.phn);
     userHelpers.deleteAddress(req.session.user._id,req.query.phn).then(()=>{
     res.redirect('/manageaddress')
     })
   },
   addressAdd:(req,res)=>{
-    console.log(req.body);
 
     userHelpers.addNewAddress(req.body).then(()=>{
       res.redirect('/manageaddress')
@@ -65,7 +63,6 @@ module.exports = {
     }else{
      Amount=0
     }
-   console.log(history);
       res.render('user/wallet',{cartCount,user,Amount,history})
     
   }

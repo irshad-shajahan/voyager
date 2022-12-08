@@ -12,7 +12,6 @@ module.exports={
         res.render('admin/addCategory')
       },
       addPost:(req, res) => {
-        console.log(req.body);
         productHelpers.addCategory(req.body).then((response) => {
           res.redirect('/admin/categories')
         })
@@ -20,8 +19,6 @@ module.exports={
      /* edit category */
      edit:async (req, res) => {
         let cat = await productHelpers.getCategoryDetails(req.params.id)
-        console.log('edit cat');
-        console.log(cat);
         res.render('admin/editCategory', { cat })
       },
       editPost:(req, res) => {

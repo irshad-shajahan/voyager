@@ -26,8 +26,6 @@ module.exports = {
           reff = await db.get().collection(collection.USERS_COLLECTION).findOne({ Referral_Code: userData.referral })
           if (reff) {
             let wall = await db.get().collection(collection.WALLET_COLLECTION).findOne({ _id: reff._id })
-            console.log("if entered");
-            console.log(wall);
             if (wall) {
               db.get().collection(collection.WALLET_COLLECTION).updateOne(
                 {
@@ -108,7 +106,6 @@ module.exports = {
                 db.get().collection(collection.WALLET_COLLECTION).insertOne(emptynewwall)
               }
               resolve(data);
-              console.log(data.insertedId);
             });
         }
       }
@@ -118,7 +115,6 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       let loginStatus = false;
       let response = {};
-      console.log(userData);
       let customer = await db
         .get()
         .collection(collection.USERS_COLLECTION)
@@ -126,19 +122,16 @@ module.exports = {
       if (customer) {
         bcrypt.compare(userData.Password, customer.Password).then((status) => {
           if (status) {
-            console.log("login-success");
             response.customer = customer;
             response.status = true;
             resolve(customer);
           } else {
             response.msg = true;
-            console.log("login failed");
             response.status = false;
             resolve(response);
           }
         });
       } else {
-        console.log("log failed");
         resolve({ status: false });
       }
     });
@@ -150,14 +143,10 @@ module.exports = {
         .get()
         .collection(collection.USERS_COLLECTION)
         .findOne({ Phone: phone });
-      console.log("doOTP");
       if (userNum) {
         if (userNum.status) {
-          console.log(userNum.status);
           response = userNum;
           response.status = true;
-          console.log("dootp");
-          console.log(response);
           resolve(response);
         } else {
           response.blockotp = true;
@@ -197,6 +186,7 @@ module.exports = {
         Address: address.Address,
         City: address.City,
         Pin: address.Pin,
+        time:new Date().getTime()
       };
       db.get()
         .collection(collection.USERS_COLLECTION)
@@ -249,8 +239,6 @@ module.exports = {
           $sort:{time:-1}
         }
       ]).toArray()
-      console.log('++++++++++++++++++++++++++++++++++++++++++++++');
-      console.log(walletHistory);
       resolve(walletHistory)
     })
   }

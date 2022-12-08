@@ -5,7 +5,6 @@ const {ObjectId} =require('mongodb');
 
 module.exports={
     addUsers:(userData)=>{
-        console.log('add user functoin called')
         return new Promise(async(resolve,reject)=>{
             userData.Password=await bcrypt.hash(userData.Password,10)
             userData.status=true
@@ -47,7 +46,6 @@ dailysale:()=>{
       (new Date().getMonth() + 1) +
       "-" +
       new Date().getFullYear();
-      console.log(test);
     return new Promise(async (resolve, reject) => {
       let dailysale = await db
         .get()
@@ -195,7 +193,6 @@ monthly: () => {
         },
       ])
       .toArray();
-    console.log(data);
     resolve(data);
   });
 },
@@ -297,7 +294,6 @@ couponAdd:(data)=>{
     db.get().collection(collection.COUPON_COLLECTION).insertOne(coup).then(()=>{
       resolve()
     })
-    console.log(coup);
   })
 },
 coupons:()=>{
@@ -413,7 +409,6 @@ AnnualSale: () => {
         },
       ])
       .toArray();
-      console.log(data);
     resolve(data);
     });
   },
@@ -464,9 +459,6 @@ fromTo: (dates) => {
         },
         {
           $unwind: "$products",
-          // },{
-          //   $match:{'products.status':'Delivered'}
-          // },{
         },
         {
           $project: {
@@ -639,7 +631,6 @@ totalsales:()=>{
 totalcustomer:()=>{
   return new Promise(async(resolve,reject)=>{
     let customercount= await db.get().collection(collection.USERS_COLLECTION).find().toArray()
-    console.log("dddddddddddddddddddd",customercount);
     resolve(customercount)
   })
 }

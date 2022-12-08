@@ -20,7 +20,6 @@ module.exports = {
   /* add to cart */
   add: async (req, res) => {
     let stockcheck = await cartHelpers.stock(req.params.id);
-    console.log(stockcheck);
     if (stockcheck == 0) {
       res.json({stock:true})
     } else {
@@ -38,14 +37,12 @@ module.exports = {
     }
   },
   qty: (req, res, next) => {
-    console.log(req.body);
     cartHelpers
       .changeProductQuantity(req.body)
       .then((response) => {
         res.json(response);
       })
       .catch(() => {
-        console.log("ooooooooooooooooooooout");
         res.json({ outofstock: true });
       });
   },
@@ -62,14 +59,10 @@ module.exports = {
     let totall = await cartHelpers.getTotalAmount(id);
     let address = await cartHelpers.selectAddress(id);
     coup = req.session.coupon;
-    console.log("The coupon stored in session:" + coup);
-    console.log("Grand total:" + totall.total);
-    console.log("products passed" + products[0].stotal);
     newTotal = totall.total;
     if (req.session.coupon) {
       if (newTotal >= coup.Min_Amount) {
         maxdiscount = (coup.Discount_Percentage * totall.total) / 100;
-        console.log("maxdisc" + maxdiscount);
         if (maxdiscount <= coup.Max_Amount) {
           productsdiscount = maxdiscount / products.length;
           newTotal = totall.total - maxdiscount;
@@ -81,14 +74,12 @@ module.exports = {
         req.session.prodisc = productsdiscount;
         newTotal = Math.round(newTotal);
         req.session.newtot = newTotal;
-        console.log("session of tot:" + req.session.newtot);
         products.forEach((element) => {
           element.stotal = element.stotal - productsdiscount;
         });
       }
     }
 
-    console.log("newtotal" + newTotal);
     res.render("user/checkout", {
       user,
       newTotal,
@@ -100,13 +91,11 @@ module.exports = {
   },
   removeProduct: (req, res) => {
     proId = req.params.id;
-    console.log(req.session.user._id);
     cartHelpers.deleteitem(req.session.user._id, proId).then(() => {
       res.redirect("/usercart");
     });
   },
   addressAdd: (req, res) => {
-    console.log(req.body);
 
     userHelpers.addNewAddress(req.body).then(() => {
       res.redirect("/proceed-checkout");

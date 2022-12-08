@@ -17,15 +17,12 @@ module.exports = {
       element.stotal=element.stotal-prodisc
       element.orderStatus = "Placed";
     });
-    console.log(products);
     orderHelpers
       .placeOrder(req.body, products, totalPrice)
       .then(async (orderId) => {
         if (req.body["paymentMethod"] == "COD") {
-          console.log(orderId);
           res.json({ codSuccess: true });
         } else if (req.body["paymentMethod"] == "Razorpay") {
-          console.log(orderId.insertedId);
           orderHelpers
             .generateRazorpay(orderId.insertedId, totalPrice)
             .then((response) => {
@@ -33,14 +30,12 @@ module.exports = {
               res.json(response);
             });
         } else if (req.body["paymentMethod"] == "paypal") {
-          req.session.orderId = orderId.insertedId;
           let items = await paypalhelpers.items(req.session.user._id);
           total = items.reduce(function (accumulator, items) {
             return accumulator + items.price * items.quantity;
           }, 0);
           req.session.total = total;
           paypalhelpers.createorder(items, total).then((payment) => {
-            console.log("link generation");
             for (let i = 0; i < payment.links.length; i++) {
               if (payment.links[i].rel === "approval_url") {
                 res.json(payment.links[i].href);
@@ -48,9 +43,6 @@ module.exports = {
             }
           });
         }else {
-          console.log('wallet entered');
-          console.log(orderId.insertedId);
-          console.log(totalPrice.total);
           orderHelpers.walletPayment(orderId.insertedId,req.session.user._id,totalPrice.total).then((response)=>{
 
             res.json({ wallet: response })
@@ -118,7 +110,6 @@ module.exports = {
       if(!cpage){
         cpage=1
       }
-      console.log(cpage);
       pageNos.forEach((element)=>{
         if((element.page==cpage))
         element.active="bg-warning"
@@ -130,8 +121,6 @@ module.exports = {
   },
 
   updateOrderStatusAdmin: (req, res) => {
-    console.log('update called');
-    console.log(req.body);
     orderHelpers.updateOrderAdmin(req.body).then((response) => {
       res.json(response)
     });
@@ -194,7 +183,6 @@ module.exports = {
     res.render("user/viewOrderProducts", { user, products, cartCount });
   },
   updateOrderStatusUser: (req, res) => {
-    console.log(req.session.user._id);
     refundAmount=parseInt(req.body.refundAmount)
     orderHelpers.updateOrderUser(req.body.order,req.body.product,req.body.action,req.session.user._id,refundAmount).then((response) => {
       res.json(response)
@@ -205,13 +193,10 @@ module.exports = {
       cartCount = await cartHelpers.getCartCount(req.session.user._id);
     }
     user = req.session.user;
-    console.log(req.session.user._id);
     let orders = await orderHelpers.getUserOrders(req.session.user._id);
-    console.log(orders);
     res.render("user/orderhistory", { user, orders, cartCount });
   },
   verifyPayment: (req, res) => {
-    console.log(req.body);
     orderHelpers
       .verifyPayment(req.body)
       .then(() => {
@@ -222,20 +207,16 @@ module.exports = {
           });
       })
       .catch((err) => {
-        console.log(err);
         res.json({ status: false, errMsg: "" });
       });
   },
   verifyPaypal: (req, res) => {
-    console.log("verify paypal reacjed");
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
-    console.log(req.session.orderId);
     paypalhelpers.verify(payerId, paymentId, req.session.total).then(() => {
-      orderHelpers.changePaymentStatus(req.session.orderId).then((response) => {
+      orderHelpers.changePaymentStatus(req.session.orderId,req.session.user._id).then((response) => {
         res.redirect("/ordersucess");
-        //     response.paypal=true
-        // res.json(response)
+
       });
     });
   },

@@ -20,23 +20,17 @@ module.exports={
         res.redirect('/admin/banners')
     },
     delete:(req,res)=>{
-        console.log(req.params.id);
         adminHelpers.deletebanner(req.params.id).then((response)=>{
             res.json(response)
         })
     },
     status:(req,res)=>{
-        console.log('sdjfbsdfdv');
-        console.log(req.body);
-
         if(req.body.status=="true"){
             req.body.status=true
         }else{
             req.body.status=false
         }
-        console.log(req.body);
         adminHelpers.banstatus(req.body).then((response)=>{
-            console.log('idsuhfgjisdgdf');
             res.json({status:true})
         })
     }
