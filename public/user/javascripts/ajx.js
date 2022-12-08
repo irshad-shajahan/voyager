@@ -3,6 +3,13 @@ function addToCart(proId){
         url:'/addtocart/'+proId, 
         method:'get',
         success:(response)=>{
+            if(response.stock){
+                swal({
+                    title: "Out Of Stock",
+                    icon: "error",
+                    button: "ok",
+                  })
+            }
             if(response.status){
                 swal({
                     title: "Added",
@@ -15,6 +22,8 @@ function addToCart(proId){
                 let count=$('#cart-count').html()
                 count=parseInt(count)+1
                 $('#cart-count').html(count)
+            }else if(response.login){
+                window.location='/login'
             }
         }
     })

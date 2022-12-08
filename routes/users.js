@@ -57,7 +57,7 @@ router
 
 router
 .route('/addtocart/:id')
-.get(verify.verifyLoggedOutUser,cart.add)
+.get(cart.add)
 
 
 router

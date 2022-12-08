@@ -60,6 +60,7 @@ module.exports={
         })
         productData.images=imagesFileNames
         console.log(productData);
+        productData.stock=parseInt(productData.stock)
         let proId= await productHelpers.addProduct((productData))
               res.redirect("/admin/products")
 

@@ -1,6 +1,41 @@
-{{>userhead}}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/user/stylesheets/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/user/stylesheets/style.css" type="text/css">
+    {{!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://kit.fontawesome.com/eed1365ac8.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
+</head>
+
 <body>
-{{>userheader}}
+    {{>userheader}}
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
@@ -35,13 +70,17 @@
                             <a class="pt" href="#product-3">
                                 <img src="/admin/productImages/{{products.images.[2]}}" alt="">
                             </a>
-                            
+
                         </div>
                         <div class="product__details__slider__content">
                             <div class="product__details__pic__slider owl-carousel">
-                                <img data-hash="product-1"  class="product__big__img" src="/admin/productImages/{{products.images.[0]}}" alt="">
-                                <img data-hash="product-2" class="product__big__img" src="/admin/productImages/{{products.images.[1]}}" alt="">
-                                <img data-hash="product-3" class="product__big__img" src="/admin/productImages/{{products.images.[2]}}" alt="">                            </div>
+                                <img id="zoom_mw" data-hash="product-1" class="product__big__img"
+                                    src="/admin/productImages/{{products.images.[0]}}" alt="">
+                                <img id="zoom_mw" data-hash="product-2" class="product__big__img"
+                                    src="/admin/productImages/{{products.images.[1]}}" alt="">
+                                <img id="zoom_mw" data-hash="product-3" class="product__big__img"
+                                    src="/admin/productImages/{{products.images.[2]}}" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,18 +95,22 @@
                             <i class="fa fa-star"></i>
                             <span>( 138 reviews )</span>
                         </div>
-                        <div class="product__details__price">₹{{products.Price}}/- <span>{{products.APrice}}</span></div>
+                        <div class="product__details__price">₹{{products.Price}}/- <span>{{products.APrice}}</span>
+                        </div>
                         <p>{{products.Description}}</p>
                         <div class="product__details__button">
-                            
-                            {{!-- <a href="/addtocart/{{products._id}}" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a> --}}
+
+                            {{!-- <a href="/addtocart/{{products._id}}" class="cart-btn"><span
+                                    class="icon_bag_alt"></span> Add to cart</a> --}}
                             {{#if check.status}}
-                          <button onclick="addToCart('{{products._id}}')" class="cart-btn border-0">Add to Cart</button>
+                            <button onclick="addToCart('{{products._id}}')" class="cart-btn border-0">Add to
+                                Cart</button>
                             {{else}}
-                                <a href="/usercart" class="cart-btn">Go to Cart</a>
+                            <a href="/usercart" class="cart-btn">Go to Cart</a>
                             {{/if}}
                             <ul>
-                                <li><a onclick="addToWishlist('{{products._id}}')"><span class="icon_heart_alt"></span></a></li>
+                                <li><a onclick="addToWishlist('{{products._id}}')"><span
+                                            class="icon_heart_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__details__widget">
@@ -97,9 +140,18 @@
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <h6>Reviews ( 2 )</h6>
                                 <span>Iba Irsh(verified buyer)</span>
-                                <p>When the weather gets really hot, riding a motorcycle is indeed exhausting unless you have well ventilated riding gear. The JET riding pants are designed with extra large mesh panels on the front and back. This is done in order to offer optimum ventilation. Now ride comfortably even in the warmest environments. Also, sewn with double reinforced safe seams it provides both durability and lightweight.</p>
+                                <p>When the weather gets really hot, riding a motorcycle is indeed exhausting unless you
+                                    have well ventilated riding gear. The JET riding pants are designed with extra large
+                                    mesh panels on the front and back. This is done in order to offer optimum
+                                    ventilation. Now ride comfortably even in the warmest environments. Also, sewn with
+                                    double reinforced safe seams it provides both durability and lightweight.</p>
                                 <span>Sumesh Chadran(verified buyer)</span>
-                                <p>The trousers are equipped with NextDry™ waterproof membrane rain liner. This can used as an inner as well as outer liner depending on your preference. The NextDry™ membrane is a microporous, breathable construction,  thereby making it a waterproof and windproof solution. Specifically designed for motorcyclists like you, NextDry™ allows your skin to breathe while keeping it dry and comfortable. Now ride rain ready and keep that throttle steady!!</p>
+                                <p>The trousers are equipped with NextDry™ waterproof membrane rain liner. This can used
+                                    as an inner as well as outer liner depending on your preference. The NextDry™
+                                    membrane is a microporous, breathable construction, thereby making it a waterproof
+                                    and windproof solution. Specifically designed for motorcyclists like you, NextDry™
+                                    allows your skin to breathe while keeping it dry and comfortable. Now ride rain
+                                    ready and keep that throttle steady!!</p>
                             </div>
                         </div>
                     </div>
@@ -107,7 +159,11 @@
             </div>
         </div>
     </section>
-{{>userfooter}}
-{{>userjs}}
-
+    {{>userfooter}}
+    <script>
+        $('#zoom_mw').ezPlus({
+    scrollZoom: true
+});
+    </script>
+    {{>userjs}}
 </body>
