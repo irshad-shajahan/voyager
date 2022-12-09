@@ -161,16 +161,7 @@
                                     </tbody>
                                 </table>
                                 
-                                {{!-- <ul>
-                                    <li>
-                                        <span class="top__text">Products</span>
-                                        <span class="top__text__right">Total</span>
-                                    </li>
-                                    {{#each products}}
-                                    <li>{{this.quantity}} <b style="color: rgb(255, 0, 0);">x</b>
-                                        {{this.product.Name}}<span>$ 300.0</span></li>
-                                    {{/each}}
-                                </ul> --}}
+                                
                             </div>
                             <div class="checkout__order__total">
                                 <ul>
@@ -218,11 +209,10 @@
     <div class="container">
         <div class="row">
             <a class="btn btn-primary" data-toggle="modal" href="#ignismyModal" hidden></a>
-            <div class="modal fade" id="ignismyModal" role="dialog">
+            <div class="modal fade" id="ignismyModal" data-keyboard="false" data-backdrop="static" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <a href="/usercart" data-dismiss="modal" class="close">x</a>
                         </div>
 
                         <div class="modal-body">
@@ -236,6 +226,7 @@
                                 <h1>Your Order Has Been Placed</h1>
                                 <p>You Will Recieve An Order Confirmtion Through Email</p>
                                 <a href="/orders" class="btn btn-site">Go To Orders</a>
+                            <a  data-dismiss="modal" onclick="closemod()" class="btn bg-warning">Close</a>
 
                             </div>
 
@@ -338,6 +329,11 @@
                 }
             })
         })
+        
+        function closemod(){
+            window.location='/usercart'
+        }
+
         function razorpayPayment(order) {
             var options = {
                 "key": "rzp_test_pa5i8lppxLHLw5", // Enter the Key ID generated from the Dashboard

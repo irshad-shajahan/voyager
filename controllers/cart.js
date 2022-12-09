@@ -53,9 +53,9 @@ module.exports = {
       cartCount = await cartHelpers.getCartCount(req.session.user._id);
       userwallet = await userHelpers.wallet(req.session.user._id);
     }
-    let user = req.session.user;
     let id = req.session.user._id;
     let products = await cartHelpers.getCartProducts(id);
+    let user = req.session.user;
     let totall = await cartHelpers.getTotalAmount(id);
     let address = await cartHelpers.selectAddress(id);
     coup = req.session.coupon;

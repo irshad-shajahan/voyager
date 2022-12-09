@@ -88,6 +88,8 @@ module.exports={
           var productData = req.body;
           productData.imagesFileNames = value.images
         }
+      productData.stock=parseInt(productData.stock)
+      console.log(productData);
         productHelpers.updateProduct(req.params.id, productData).then((response) => {
 
           res.redirect("/admin/products")
