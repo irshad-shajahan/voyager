@@ -30,6 +30,7 @@ module.exports = {
               res.json(response);
             });
         } else if (req.body["paymentMethod"] == "paypal") {
+          req.session.orderId=orderId.insertedId
           let items = await paypalhelpers.items(req.session.user._id);
           total = items.reduce(function (accumulator, items) {
             return accumulator + items.price * items.quantity;

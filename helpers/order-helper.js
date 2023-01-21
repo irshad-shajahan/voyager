@@ -389,7 +389,6 @@ module.exports = {
         )
         .then((response) => {
           db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(userId)}).then(()=>{
-
             resolve(response);
           })
         });
